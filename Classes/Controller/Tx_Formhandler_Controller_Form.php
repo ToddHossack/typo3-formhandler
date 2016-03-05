@@ -1209,6 +1209,13 @@ class Tx_Formhandler_Controller_Form extends Tx_Formhandler_AbstractController {
 
 		$this->submitted = $this->isFormSubmitted();
 
+		// Check if the current step has been incremented beyond the total steps
+		// but the form has not been finished yet. Correct currentStep to avoid template exception.
+		if(!$this->submitted && $this->currentStep > $this->totalSteps) {
+			$this->currentStep = $this->totalSteps;
+			$this->globals->getSession()->set('currentStep', $this->currentStep);
+		}
+		
 		$this->globals->setSubmitted($this->submitted);
 		if ($this->globals->getSession()->get('creationTstamp') === NULL) {
 			if($this->submitted) {
@@ -1341,17 +1348,24 @@ class Tx_Formhandler_Controller_Form extends Tx_Formhandler_AbstractController {
 		if (!$this->lastStep) {
 			$this->lastStep = 1;
 		}
-
-		$this->templateFile = $this->utilityFuncs->readTemplateFile($this->templateFile, $this->settings);
-
-		//Parse all template files and search for step subparts to calculate total step count
+		
 		$allTemplateCodes = array();
-		$step = 1;
-		while(isset($this->settings[$step . '.']['templateFile'])) {
-			$allTemplateCodes[] = $this->utilityFuncs->readTemplateFile($this->templateFile, $this->settings[$step . '.']);
-			$step++;
+		
+		// Single template file: set via GUI or in Typoscript settings
+		$this->templateFile = $this->utilityFuncs->readTemplateFile($this->templateFile, $this->settings);
+		if($this->templateFile) {
+			$allTemplateCodes[] = $this->templateFile;
 		}
-
+		// Multiple template files: set via Typoscript settings
+		else {
+			$step = 1;
+			while(isset($this->settings[$step . '.']['templateFile'])) {
+				$allTemplateCodes[] = $this->utilityFuncs->readTemplateFile($this->templateFile, $this->settings[$step . '.']);
+				$step++;
+			}
+		}
+		
+		// Parse all template files and search for step subparts to calculate total step count
 		$subparts = array();
 		foreach($allTemplateCodes as $templateCode) {
 			preg_match_all('/(###TEMPLATE_FORM)([0-9]+)(_.*)?(###)/', $templateCode, $matches);
@@ -1365,6 +1379,10 @@ class Tx_Formhandler_Controller_Form extends Tx_Formhandler_AbstractController {
 			$this->utilityFuncs->debugMessage('subparts_missing', array(implode(', ', $subparts)), 2);
 		} else {
 			$this->utilityFuncs->debugMessage('total_steps', array($this->totalSteps));
+		}
+		
+		if($this->lastStep > $this->totalSteps) {
+			$this->lastStep = $this->totalSteps;
 		}
 	}
 
