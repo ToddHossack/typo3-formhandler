@@ -7,9 +7,7 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>
-                        LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.xml:formhandler.pi_flexform.sheet_general
-                    </sheetTitle>
+                    <sheetTitle>LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.xml:formhandler.pi_flexform.sheet_general</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -74,9 +72,7 @@
         <sEMAILADMIN>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>
-                        LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.xml:formhandler.pi_flexform.sheet_emailAdminSettings
-                    </sheetTitle>
+                    <sheetTitle>LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.xml:formhandler.pi_flexform.sheet_emailAdminSettings</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -214,9 +210,7 @@
         <sEMAILUSER>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>
-                        LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.xml:formhandler.pi_flexform.sheet_emailUserSettings
-                    </sheetTitle>
+                    <sheetTitle>LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.xml:formhandler.pi_flexform.sheet_emailUserSettings</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -352,9 +346,7 @@
         <sMISC>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>
-                        LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.php:formhandler.pi_flexform.sheet_miscSettings
-                    </sheetTitle>
+                    <sheetTitle>LLL:EXT:formhandler/Resources/Private/Language/locallang_tca.php:formhandler.pi_flexform.sheet_miscSettings</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
