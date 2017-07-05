@@ -292,7 +292,7 @@ class Mail extends AbstractFinisher
             $mailSettings['attachment'] = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $mailSettings['attachment']);
         }
         foreach ($mailSettings['attachment'] as $idx => $attachment) {
-            if (strlen($attachment) > 0 && @file_exists($attachment)) {
+            if (strlen($attachment) > 0 && is_file($attachment)) {
                 $this->emailObj->addAttachment($attachment);
             } else {
                 $this->utilityFuncs->debugMessage('attachment_not_found', [$attachment], 2);
@@ -457,9 +457,9 @@ class Mail extends AbstractFinisher
                 foreach ($sessionFiles[$file] as $subIdx => $uploadedFile) {
                     array_push($parsed, $uploadedFile['uploaded_path'] . $uploadedFile['uploaded_name']);
                 }
-            } elseif (file_exists($file)) {
+            } elseif (is_file($file)) {
                 array_push($parsed, $file);
-            } elseif (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . $file)) {
+            } elseif (is_file(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . $file)) {
                 array_push($parsed, \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . $file);
             } elseif (strlen($file) > 0) {
                 $this->utilityFuncs->debugMessage('attachment_not_found', [$file], 2);
