@@ -775,9 +775,9 @@ class Form extends AbstractController
                                 }
                                 if (!$exists || $uploadedFilesWithSameNameAction === 'replace' || $uploadedFilesWithSameNameAction === 'append') {
                                     $name = $this->utilityFuncs->doFileNameReplace($name);
-                                    $filename = substr($name, 0, strpos($name, '.'));
+                                    $filename = substr($name, 0, strrpos($name, '.'));
                                     if (strlen($filename) > 0) {
-                                        $ext = substr($name, strpos($name, '.'));
+                                        $ext = substr($name, strrpos($name, '.'));
                                         $suffix = 1;
 
                                         //build file name
